@@ -1,0 +1,2 @@
+../Core/Src/apps/Control/control.c:9:6:sendData	32	static
+../Core/Src/apps/Control/control.c:28:6:ControlTasks	16	static

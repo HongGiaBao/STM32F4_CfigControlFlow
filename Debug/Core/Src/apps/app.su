@@ -1,0 +1,8 @@
+../Core/Src/apps/app.c:12:6:InitializeApplications	8	static
+../Core/Src/apps/app.c:20:6:InitializeGlobalVariables	8	static
+../Core/Src/apps/app.c:29:6:InitializeAppState	4	static
+../Core/Src/apps/app.c:34:6:RunSystemTasks	8	static
+../Core/Src/apps/app.c:71:14:IsInputSignalPresent	4	static
+../Core/Src/apps/app.c:81:6:PreprocessData	8	static
+../Core/Src/apps/app.c:87:6:ProcessCommand	4	static
+../Core/Src/apps/app.c:90:6:ExecuteCommand	4	static

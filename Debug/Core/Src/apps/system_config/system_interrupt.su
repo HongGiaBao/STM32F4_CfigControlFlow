@@ -1,0 +1,2 @@
+../Core/Src/apps/system_config/system_interrupt.c:10:6:TIM2_IRQHandler	4	static
+../Core/Src/apps/system_config/system_interrupt.c:33:6:USART1_IRQHandler	16	static
