@@ -17,18 +17,23 @@ void sendData(uint16_t data)
 	dataSend[2] = data & 0xFF;
 
 	uint16_t count = 0;
-	for(count = 0; count < length; count++)
+	for(count = 0; count < length-1; count++)
 	{
 		checksum = checksum + dataSend[count];
 	}
 	dataSend[3] = checksum;
-	USART1_Transmit(dataSend, length);
+	USART2_Transmit(dataSend, length);
 }
 
 void ControlTasks(void)
 {
 	uint16_t pan = 5000;
-	sendData(pan);
+	if(trigger_timer2 == true)
+	{
+		sendData(pan);
+		trigger_timer2 = 0;
+		GPIOD->ODR 			^= (0x1 << 12);
+	}
 }
 
 

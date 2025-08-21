@@ -14,8 +14,8 @@ _SCIbuffer SCI3buffer;
 /*Init GPIOs for SCI (UART) interface */
 void InitSciGPIO(void)
 {
-	InitSci1Gpio();
-//	InitSci2Gpio();
+//	InitSci1Gpio();
+	InitSci2Gpio();
 //	InitSci3Gpio();
 }
 
@@ -49,7 +49,25 @@ void InitSci1Gpio(void)
 /*Init GPIOs for SCI2 */
 void InitSci2Gpio(void)
 {
+	// 2. Configure PA2 (TX) and PA3 (RX) as Alternate Function (AF7)
+	GPIOA->MODER &= ~((0x3 << (2*2)) | (0x3 << (2*3)));  // Clear MODER2, MODER3
+	GPIOA->MODER |=  ((0x2 << (2*2)) | (0x2 << (2*3)));  // Set AF mode (10)
 
+	// 3. Configure output type as Push-Pull
+	GPIOA->OTYPER &= ~((1 << 2) | (1 << 3));             // 0 = Push-Pull
+
+	// 4. Configure speed as High speed
+	GPIOA->OSPEEDR &= ~((0x3 << (2*2)) | (0x3 << (2*3)));
+	GPIOA->OSPEEDR |=  ((0x2 << (2*2)) | (0x2 << (2*3))); // 10 = High speed
+
+	// 5. Configure Pull-up/Pull-down
+	// TX: No pull; RX: Pull-Up để tránh floating line
+	GPIOA->PUPDR &= ~((0x3 << (2*2)) | (0x3 << (2*3)));
+	GPIOA->PUPDR |=  (0x1 << (2*3));                     // PA3 = Pull-Up
+
+	// 6. Select Alternate Function = AF7 (USART2) cho PA2/PA3
+	GPIOA->AFR[0] &= ~((0xF << (4*2)) | (0xF << (4*3))); // Clear AFRL2, AFRL3
+	GPIOA->AFR[0] |=  ((0x7 << (4*2)) | (0x7 << (4*3))); // AF7 = USART2
 }
 
 
@@ -63,9 +81,10 @@ void InitSci3Gpio(void)
 /*Init SCI Modules */
 void InitSciModules(void)
 {
-	InitSci1();
-	InitBufferSci1();
-//	InitSci2();
+//	InitSci1();
+//	InitBufferSci1();
+	InitSci2();
+	InitBufferSci2();
 //	InitSci3();
 }
 
@@ -73,9 +92,19 @@ void InitSciModules(void)
 /*Init Sci1 Modules*/
 void InitSci1(void)
 {
-	//fclk = 84MHz -> USARTDIV = 11.391 (for baudrate 460.8Kbs)
-	USART1->BRR = 0xB6;
+//	//fclk = 84MHz -> USARTDIV = 11.391 (for baudrate 460.8Kbs)
+//	USART1->BRR = 0xB6;
 
+	//fclk = 84MHz -> USARTDIV = 45.593 (for baudrate 115.2Kbs)
+	USART1->BRR = 0x2D9;
+
+	USART1->SR = 0;
+
+	USART1->CR1 = 0;
+	USART1->CR2 = 0;
+	USART1->CR2 |= USART_CR2_STOP_1;
+
+	USART1->CR3 = 0;
 	/*- UE = 1 (USART enable)
 	 	- TE = 1 (Transmitter enable)
 	 	- RE = 1 (Receiver enable)
@@ -86,8 +115,7 @@ void InitSci1(void)
 	USART1->CR1 = (1 << 13) |  // UE
 								(1 << 3)  |  // TE
 								(1 << 2)  |  // RE
-								(1 << 5)  |  // RXNEIE
-								(1 << 7);    // TXEIE
+								(1 << 5); // RXNEIE
 	//Enable USART1 interrupt in NVIC
 	NVIC_EnableIRQ(USART1_IRQn);
 }
@@ -96,7 +124,36 @@ void InitSci1(void)
 /*Init Sci2 Modules*/
 void InitSci2(void)
 {
+	// fclk = 42 MHz (APB1)
+	// Baudrate = 115200 bps
+	// USARTDIV = 42MHz / (16 * 115200) = 22.786 -> BRR = 0x16D
+	USART2->BRR = 0x16D;
 
+	// Clear status register
+	USART2->SR = 0;
+
+	// CR1/CR2/CR3 reset
+	USART2->CR1 = 0;
+	USART2->CR2 = 0;
+	USART2->CR2 |= USART_CR2_STOP_1;  // 1 stop bit
+
+	USART2->CR3 = 0;
+
+	/* CR1 configuration
+		- UE = 1 (USART enable)
+		- TE = 1 (Transmitter enable)
+		- RE = 1 (Receiver enable)
+		- RXNEIE = 1 (RX not empty interrupt enable)
+		- 8 data bits, no parity (M = 0, PCE = 0)
+		- Oversampling 16 (OVER8 = 0)
+	*/
+	USART2->CR1 = (1 << 13) |  // UE
+				  (1 << 3)  |  // TE
+				  (1 << 2)  |  // RE
+				  (1 << 5);    // RXNEIE
+
+	// Enable USART2 interrupt in NVIC
+	NVIC_EnableIRQ(USART2_IRQn);
 }
 
 
@@ -187,7 +244,42 @@ void USART1_Transmit(const uint8_t *data, uint16_t length)
 	USART1->CR1 |= USART_CR1_TXEIE;
 }
 
+/* Reset USART2 Queue */
+extern uint16_t tx2Buffer_head;
+extern uint16_t tx2Buffer_tail;
+extern uint16_t tx2_ready;
+extern uint8_t tx2_buffer[256];
 
+void USART2_ResetQueue(void)
+{
+    USART2->CR1 &= ~USART_CR1_TXEIE;
+    tx2Buffer_head = 0;
+    tx2Buffer_tail = 0;
+    tx2_ready = 0;
+}
+
+/* Function send packet through USART2 */
+void USART2_Transmit(const uint8_t *data, uint16_t length)
+{
+	if (tx2_ready != 0)
+	{
+		return;
+	}
+	if (tx2_ready + length > 256)
+    {
+        USART2_ResetQueue();
+        return;
+    }
+
+    for (uint16_t i = 0; i < length; i++)
+    {
+        tx2_buffer[tx2Buffer_tail] = data[i];
+        tx2Buffer_tail = (tx2Buffer_tail + 1) % 256;
+        tx2_ready++;
+    }
+
+    USART2->CR1 |= USART_CR1_TXEIE;
+}
 
 
 

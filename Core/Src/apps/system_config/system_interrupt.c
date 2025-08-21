@@ -15,7 +15,7 @@ void TIM2_IRQHandler(void)
 		// delete Update Event flag
 		TIM2->SR &= ~TIM_SR_UIF;
 
-		if(TIM2InterruptCount % 100 == 0)
+		if(TIM2InterruptCount % 10000 == 0)
 		{
 			trigger_timer2 = true;
 		}
@@ -43,7 +43,7 @@ void USART1_IRQHandler(void)
 		else
 		{
 			//Send the next byte from tx_buffer
-			USART1->DR = tx_buffer[txBuffer_head];
+			USART1->DR = 0x02;
 			txBuffer_head = (txBuffer_head + 1) % 256;
 			tx_ready--;
 		}
@@ -102,7 +102,84 @@ void USART1_IRQHandler(void)
 }
 
 
+/* ------ Interrupts SCI2 Module ----- */
+volatile uint8_t  tx2_ready = 0;
+volatile uint8_t  tx2_buffer[256];
+volatile uint16_t tx2Buffer_head = 0;
+volatile uint16_t tx2Buffer_tail = 0;
+double  scic2_t = 0;
+double  scic2_f = 0;
 
+void USART2_IRQHandler(void)
+{
+    // TXE interrupt: transmit data register is empty
+    if (USART2->SR & USART_SR_TXE)
+    {
+        if (tx2_ready == 0)
+        {
+            // No more data to send -> disable TXE interrupt
+            USART2->CR1 &= ~USART_CR1_TXEIE;
+        }
+        else
+        {
+            // Send the next byte from tx2_buffer
+            USART2->DR = tx2_buffer[tx2Buffer_head];
+            tx2Buffer_head = (tx2Buffer_head + 1) % 256;
+            tx2_ready--;
+        }
+    }
+
+    // RXNE interrupt: new data received
+    if (USART2->SR & USART_SR_RXNE)
+    {
+        SCI2buffer.value = USART2->DR;
+        switch (SCI2buffer.state)
+        {
+            case HEADER:
+                if (SCI2buffer.value == 0xA6)
+                {
+                    SCI2buffer.header = SCI2buffer.value;
+                    SCI2buffer.index = 0;
+                    SCI2buffer.calCS = 0;
+                    SCI2buffer.state = PAYLOAD;
+                }
+                break;
+
+            case PAYLOAD:
+                SCI2buffer.data[SCI2buffer.index++] = SCI2buffer.value;
+                if (SCI2buffer.index >= 4)
+                {
+                    SCI2buffer.calCS = SCI2buffer.header;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        SCI2buffer.calCS += SCI2buffer.data[i];
+                    }
+                    SCI2buffer.calCS &= 0xFF;
+                    SCI2buffer.state = CHECKSUM;
+                }
+                break;
+
+            case CHECKSUM:
+                SCI2buffer.checksum = SCI2buffer.value;
+                if (SCI2buffer.checksum == SCI2buffer.calCS)
+                {
+                    SCI2buffer.flag = true;
+                    scic2_t++;
+                }
+                else
+                {
+                    SCI2buffer.flag = false;
+                    scic2_f++;
+                }
+                SCI2buffer.state = HEADER;
+                break;
+
+            default:
+                SCI2buffer.state = HEADER;
+                break;
+        }
+    }
+}
 
 
 

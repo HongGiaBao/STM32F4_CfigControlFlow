@@ -1,5 +1,6 @@
 "./Core/Src/apps/Control/control.o"
 "./Core/Src/apps/app.o"
+"./Core/Src/apps/command_process/command_process.o"
 "./Core/Src/apps/system_config/framework/drv_digitalGpio.o"
 "./Core/Src/apps/system_config/framework/drv_sci.o"
 "./Core/Src/apps/system_config/framework/drv_timer.o"

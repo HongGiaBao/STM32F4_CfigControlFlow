@@ -89,6 +89,10 @@ void InitClocks(void)
 	/*TIMER2, TIMER3 Clock Enable*/
 	RCC->APB1ENR |= 0x00000003;
 
+	/*USART1 Clock Enable*/
+//	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
+	RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
+
 	HAL_Delay(1);
 }
 

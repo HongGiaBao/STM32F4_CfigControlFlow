@@ -24,6 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src/apps/Control \
 Core/Src/apps \
+Core/Src/apps/command_process \
 Core/Src/apps/system_config/framework \
 Core/Src/apps/system_config \
 Core/Src \

@@ -59,5 +59,7 @@ void USART3_ResetQueue(void);
 
 
 void USART1_Transmit(const uint8_t *, uint16_t);
+void USART2_Transmit(const uint8_t *, uint16_t);
+void USART3_Transmit(const uint8_t *, uint16_t);
 
 #endif /* INC_APPS_SYSTEM_CONFIG_FRAMEWORK_DRV_SCI_H_ */

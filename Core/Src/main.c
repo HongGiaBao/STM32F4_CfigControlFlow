@@ -9,7 +9,7 @@
 #include "main.h"
 
 /*Global flag variables*/
-bool isSystemReady = 0;
+bool isSystemReady = 1;
 
 int main(void)
 {
@@ -19,11 +19,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-  	if(trigger_timer2 == true)
-  	{
-  		trigger_timer2 = false;
-  		GPIOD->ODR 			^= (0x1 << 12);
-  	}
+	RunSystemTasks();
   }
 }
