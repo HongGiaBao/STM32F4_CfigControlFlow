@@ -22,6 +22,9 @@ void InitializeGlobalVariables(void)
 	/*Clear timer counter*/
 	InitTimerCounter();
 
+	/*Clear all buffer*/
+	initDrvUSART();
+
 	/*Init states of system*/
 	InitializeAppState();
 }
@@ -70,7 +73,7 @@ void RunSystemTasks(void)
 
 SignalStatus IsInputSignalPresent(void)
 {
-	if(SCI1buffer.flag == 1)
+	if(SCI2buffer.flag == 1)
 	{
 		return SIGNAL_PRESENT;
 	}
@@ -80,8 +83,8 @@ SignalStatus IsInputSignalPresent(void)
 
 void PreprocessData()
 {
-	PreProcessUSART1();
-//	PreProcessUSART2();
+//	preProcessUSART1();
+	preProcessUSART2();
 }
 
 void ProcessCommand()

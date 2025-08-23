@@ -23,7 +23,7 @@ typedef struct
 {
 	uint16_t data[SCI_BUFFER_SIZE];
 	uint16_t header;
-	uint16_t state;
+	SCI_State state;
 	uint16_t index;
 	uint16_t checksum;
 	uint16_t calCS;
@@ -34,6 +34,8 @@ typedef struct
 extern _SCIbuffer SCI1buffer;
 extern _SCIbuffer SCI2buffer;
 extern _SCIbuffer SCI3buffer;
+
+extern _SCIbuffer DrvSciRcv;
 
 void InitSciGPIO(void);
 void InitSci1Gpio(void);

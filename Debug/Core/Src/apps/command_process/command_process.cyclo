@@ -1,1 +1,4 @@
-../Core/Src/apps/command_process/command_process.c:10:6:PreProcessUSART1	1
+../Core/Src/apps/command_process/command_process.c:12:6:initDrvUSART	2
+../Core/Src/apps/command_process/command_process.c:26:6:preProcessUSART1	2
+../Core/Src/apps/command_process/command_process.c:36:6:preProcessUSART2	2
+../Core/Src/apps/command_process/command_process.c:46:6:preProcessUSART3	2

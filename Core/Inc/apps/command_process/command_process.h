@@ -10,6 +10,11 @@
 
 #include "main.h"
 
-void PreProcessUSART1(void);
+
+void initDrvUSART(void);
+
+void preProcessUSART1(void);
+void preProcessUSART2(void);
+void preProcessUSART3(void);
 
 #endif /* INC_APPS_COMMAND_PROCESS_COMMAND_PROCESS_H_ */

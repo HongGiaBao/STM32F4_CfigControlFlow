@@ -1,8 +1,8 @@
 ../Core/Src/apps/app.c:12:6:InitializeApplications	1
 ../Core/Src/apps/app.c:20:6:InitializeGlobalVariables	1
-../Core/Src/apps/app.c:29:6:InitializeAppState	1
-../Core/Src/apps/app.c:34:6:RunSystemTasks	8
-../Core/Src/apps/app.c:71:14:IsInputSignalPresent	2
-../Core/Src/apps/app.c:81:6:PreprocessData	1
-../Core/Src/apps/app.c:87:6:ProcessCommand	1
-../Core/Src/apps/app.c:90:6:ExecuteCommand	1
+../Core/Src/apps/app.c:32:6:InitializeAppState	1
+../Core/Src/apps/app.c:37:6:RunSystemTasks	8
+../Core/Src/apps/app.c:74:14:IsInputSignalPresent	2
+../Core/Src/apps/app.c:84:6:PreprocessData	1
+../Core/Src/apps/app.c:90:6:ProcessCommand	1
+../Core/Src/apps/app.c:93:6:ExecuteCommand	1

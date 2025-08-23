@@ -1,1 +1,4 @@
-../Core/Src/apps/command_process/command_process.c:10:6:PreProcessUSART1	4	static
+../Core/Src/apps/command_process/command_process.c:12:6:initDrvUSART	16	static
+../Core/Src/apps/command_process/command_process.c:26:6:preProcessUSART1	8	static
+../Core/Src/apps/command_process/command_process.c:36:6:preProcessUSART2	8	static
+../Core/Src/apps/command_process/command_process.c:46:6:preProcessUSART3	8	static
