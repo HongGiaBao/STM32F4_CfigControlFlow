@@ -31,6 +31,7 @@ Core/Src/stm32f4xx_hal_msp.o: ../Core/Src/stm32f4xx_hal_msp.c \
  ../Core/Inc/apps/system_config/framework/drv_digitalGpio.h \
  ../Core/Inc/apps/system_config/framework/drv_timer.h \
  ../Core/Inc/apps/system_config/framework/drv_sci.h \
+ ../Core/Inc/apps/system_config/framework/drv_pwm.h \
  ../Core/Inc/apps/Control/control.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -66,4 +67,5 @@ Core/Src/stm32f4xx_hal_msp.o: ../Core/Src/stm32f4xx_hal_msp.c \
 ../Core/Inc/apps/system_config/framework/drv_digitalGpio.h:
 ../Core/Inc/apps/system_config/framework/drv_timer.h:
 ../Core/Inc/apps/system_config/framework/drv_sci.h:
+../Core/Inc/apps/system_config/framework/drv_pwm.h:
 ../Core/Inc/apps/Control/control.h:

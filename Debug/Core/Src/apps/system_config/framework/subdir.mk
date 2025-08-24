@@ -6,16 +6,19 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/apps/system_config/framework/drv_digitalGpio.c \
+../Core/Src/apps/system_config/framework/drv_pwm.c \
 ../Core/Src/apps/system_config/framework/drv_sci.c \
 ../Core/Src/apps/system_config/framework/drv_timer.c 
 
 OBJS += \
 ./Core/Src/apps/system_config/framework/drv_digitalGpio.o \
+./Core/Src/apps/system_config/framework/drv_pwm.o \
 ./Core/Src/apps/system_config/framework/drv_sci.o \
 ./Core/Src/apps/system_config/framework/drv_timer.o 
 
 C_DEPS += \
 ./Core/Src/apps/system_config/framework/drv_digitalGpio.d \
+./Core/Src/apps/system_config/framework/drv_pwm.d \
 ./Core/Src/apps/system_config/framework/drv_sci.d \
 ./Core/Src/apps/system_config/framework/drv_timer.d 
 
@@ -27,7 +30,7 @@ Core/Src/apps/system_config/framework/%.o Core/Src/apps/system_config/framework/
 clean: clean-Core-2f-Src-2f-apps-2f-system_config-2f-framework
 
 clean-Core-2f-Src-2f-apps-2f-system_config-2f-framework:
-	-$(RM) ./Core/Src/apps/system_config/framework/drv_digitalGpio.cyclo ./Core/Src/apps/system_config/framework/drv_digitalGpio.d ./Core/Src/apps/system_config/framework/drv_digitalGpio.o ./Core/Src/apps/system_config/framework/drv_digitalGpio.su ./Core/Src/apps/system_config/framework/drv_sci.cyclo ./Core/Src/apps/system_config/framework/drv_sci.d ./Core/Src/apps/system_config/framework/drv_sci.o ./Core/Src/apps/system_config/framework/drv_sci.su ./Core/Src/apps/system_config/framework/drv_timer.cyclo ./Core/Src/apps/system_config/framework/drv_timer.d ./Core/Src/apps/system_config/framework/drv_timer.o ./Core/Src/apps/system_config/framework/drv_timer.su
+	-$(RM) ./Core/Src/apps/system_config/framework/drv_digitalGpio.cyclo ./Core/Src/apps/system_config/framework/drv_digitalGpio.d ./Core/Src/apps/system_config/framework/drv_digitalGpio.o ./Core/Src/apps/system_config/framework/drv_digitalGpio.su ./Core/Src/apps/system_config/framework/drv_pwm.cyclo ./Core/Src/apps/system_config/framework/drv_pwm.d ./Core/Src/apps/system_config/framework/drv_pwm.o ./Core/Src/apps/system_config/framework/drv_pwm.su ./Core/Src/apps/system_config/framework/drv_sci.cyclo ./Core/Src/apps/system_config/framework/drv_sci.d ./Core/Src/apps/system_config/framework/drv_sci.o ./Core/Src/apps/system_config/framework/drv_sci.su ./Core/Src/apps/system_config/framework/drv_timer.cyclo ./Core/Src/apps/system_config/framework/drv_timer.d ./Core/Src/apps/system_config/framework/drv_timer.o ./Core/Src/apps/system_config/framework/drv_timer.su
 
 .PHONY: clean-Core-2f-Src-2f-apps-2f-system_config-2f-framework
 

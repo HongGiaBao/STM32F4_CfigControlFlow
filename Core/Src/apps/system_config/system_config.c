@@ -12,7 +12,7 @@ void SYS_Initialize(void)
 	/*1. Initialize system and hardware*/
 	HardwareInit();
 //	/*2. Initialzie the application*/
-//	AppsInit();
+	InitializeApplications();
 //	/*3. Enable all interrupt*/
 //	EnAllInterrupt();
 }
@@ -30,10 +30,12 @@ void HardwareInit(void)
   InitClocks();
   InitDigitalGPIO();
   InitSciGPIO();
+  InitPWMGPIO();
 //  InitXintGPIO();
 
   /*4. Initialize all the device peripherals*/
   InitSciModules();
+  InitPWMModules();
 
   /*5. Configure TIMERs*/
   InitTimer();
@@ -86,12 +88,17 @@ void InitClocks(void)
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOFEN;
 	HAL_Delay(1);
 
-	/*TIMER2, TIMER3 Clock Enable*/
-	RCC->APB1ENR |= 0x00000003;
+	/*TIMER1, TIMER2, TIMER3 Clock Enable*/
+	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
 
-	/*USART1 Clock Enable*/
-//	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
+	/*USART2 Clock Enable*/
 	RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
+
+
+
+
 
 	HAL_Delay(1);
 }

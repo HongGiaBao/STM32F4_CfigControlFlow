@@ -1,0 +1,2 @@
+../Core/Src/apps/system_config/framework/drv_pwm.c:10:6:InitPWMGPIO	1
+../Core/Src/apps/system_config/framework/drv_pwm.c:16:6:InitPWMModules	1

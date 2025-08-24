@@ -31,6 +31,7 @@ Core/Src/apps/app.o: ../Core/Src/apps/app.c ../Core/Inc/apps/app.h \
  ../Core/Inc/apps/system_config/framework/drv_digitalGpio.h \
  ../Core/Inc/apps/system_config/framework/drv_timer.h \
  ../Core/Inc/apps/system_config/framework/drv_sci.h \
+ ../Core/Inc/apps/system_config/framework/drv_pwm.h \
  ../Core/Inc/apps/Control/control.h
 ../Core/Inc/apps/app.h:
 ../Core/Inc/main.h:
@@ -66,4 +67,5 @@ Core/Src/apps/app.o: ../Core/Src/apps/app.c ../Core/Inc/apps/app.h \
 ../Core/Inc/apps/system_config/framework/drv_digitalGpio.h:
 ../Core/Inc/apps/system_config/framework/drv_timer.h:
 ../Core/Inc/apps/system_config/framework/drv_sci.h:
+../Core/Inc/apps/system_config/framework/drv_pwm.h:
 ../Core/Inc/apps/Control/control.h:

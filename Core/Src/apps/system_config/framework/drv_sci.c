@@ -61,7 +61,7 @@ void InitSci2Gpio(void)
 	GPIOA->OSPEEDR |=  ((0x2 << (2*2)) | (0x2 << (2*3))); // 10 = High speed
 
 	// 5. Configure Pull-up/Pull-down
-	// TX: No pull; RX: Pull-Up để tránh floating line
+	// TX: No pull; RX: Pull-Up to avoid floating line
 	GPIOA->PUPDR &= ~((0x3 << (2*2)) | (0x3 << (2*3)));
 	GPIOA->PUPDR |=  (0x1 << (2*3));                     // PA3 = Pull-Up
 

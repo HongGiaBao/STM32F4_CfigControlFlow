@@ -32,6 +32,7 @@ Core/Src/apps/system_config/system_interrupt.o: \
  ../Core/Inc/apps/system_config/framework/drv_digitalGpio.h \
  ../Core/Inc/apps/system_config/framework/drv_timer.h \
  ../Core/Inc/apps/system_config/framework/drv_sci.h \
+ ../Core/Inc/apps/system_config/framework/drv_pwm.h \
  ../Core/Inc/apps/Control/control.h
 ../Core/Inc/apps/system_config/system_interrupt.h:
 ../Core/Inc/main.h:
@@ -67,4 +68,5 @@ Core/Src/apps/system_config/system_interrupt.o: \
 ../Core/Inc/apps/system_config/framework/drv_digitalGpio.h:
 ../Core/Inc/apps/system_config/framework/drv_timer.h:
 ../Core/Inc/apps/system_config/framework/drv_sci.h:
+../Core/Inc/apps/system_config/framework/drv_pwm.h:
 ../Core/Inc/apps/Control/control.h:

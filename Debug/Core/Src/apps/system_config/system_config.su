@@ -1,4 +1,4 @@
 ../Core/Src/apps/system_config/system_config.c:10:6:SYS_Initialize	8	static
 ../Core/Src/apps/system_config/system_config.c:21:6:HardwareInit	8	static
-../Core/Src/apps/system_config/system_config.c:43:6:SystemClock_Config	88	static
-../Core/Src/apps/system_config/system_config.c:78:6:InitClocks	8	static
+../Core/Src/apps/system_config/system_config.c:45:6:SystemClock_Config	88	static
+../Core/Src/apps/system_config/system_config.c:80:6:InitClocks	8	static

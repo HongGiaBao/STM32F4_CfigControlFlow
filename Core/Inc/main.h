@@ -40,6 +40,7 @@ extern "C" {
 #include "drv_digitalGpio.h"
 #include "drv_timer.h"
 #include "drv_sci.h"
+#include "drv_pwm.h"
 
 #include "control.h"
 
